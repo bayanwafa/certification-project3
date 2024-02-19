@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -45,13 +47,13 @@ const Contact = () => {
     setSubmitted(true);
   };
 
-
+  
   return (
     <div>
       <h2>Contact Us</h2>
-      <p> Have a question , feedback or problem? We'd love to hear from you! Use the form below to get in touch. </p>
       {!submitted ? (
         <form onSubmit={handleSubmit}>
+          <p> Have a question , feedback or problem? We'd love to hear from you! Write message in below to get in touch. </p>
           <div>
             <label>Name:</label>
             <input
@@ -83,7 +85,10 @@ const Contact = () => {
           <button type="submit">Submit</button>
         </form>
       ) : (
-        <p>Thank you for your message, We have received your request.</p>
+        <div>
+          <p>Thank you for your message, We have received your request.</p>
+          <button onClick={() => navigate('/')}>Back to Home</button>
+        </div>
       )}
     </div>
   );
