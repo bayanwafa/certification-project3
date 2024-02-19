@@ -1,15 +1,8 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from 'react-router-dom'
-
-/**
- * Importing other components
- */
-import Home from './components/Home'
-import About from './components/About'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './components/Home';
+import QuizGame from './components/QuizGame';
+import Contact from './components/Contact';
 
 const App = () => {
   return (
@@ -18,23 +11,24 @@ const App = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/QuizGame">Quiz Game</Link>
+            </li>
+            <li>
+              <Link to="/Contact">Contact</Link>
             </li>
           </ul>
         </nav>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL.
-            Furthermore, notice how the content above always renders? On each page? */}
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/QuizGame" element={<QuizGame />} />
+          <Route path="/Contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>
   );
 }
 
-export default App
+export default App;
