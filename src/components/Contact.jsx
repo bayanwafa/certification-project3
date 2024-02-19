@@ -49,6 +49,7 @@ const Contact = () => {
   return (
     <div>
       <h2>Contact Us</h2>
+      <p> Have a question , feedback or problem? We'd love to hear from you! Use the form below to get in touch. </p>
       {!submitted ? (
         <form onSubmit={handleSubmit}>
           <div>
