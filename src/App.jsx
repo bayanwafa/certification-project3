@@ -4,6 +4,7 @@ import Home from './components/Home';
 import QuizGame from './components/QuizGame';
 import Contact from './components/Contact';
 
+
 const App = () => {
   return (
     <Router>
@@ -14,7 +15,7 @@ const App = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/QuizGame">Quiz Game</Link>
+              <Link to="/QuizGame">App</Link>
             </li>
             <li>
               <Link to="/Contact">Contact</Link>

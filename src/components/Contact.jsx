@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -47,10 +48,12 @@ const Contact = () => {
     setSubmitted(true);
   };
 
-  
+
   return (
     <div>
-      <h2>Contact Us</h2>
+      <header>
+        <h1>Contact Us</h1>
+      </header>
       {!submitted ? (
         <form onSubmit={handleSubmit}>
           <p> Have a question , feedback or problem? We'd love to hear from you! Write message in below to get in touch. </p>
@@ -87,9 +90,9 @@ const Contact = () => {
       ) : (
         <div>
           <p>Thank you for your message, We have received your request.</p>
-          <button onClick={() => navigate('/')}>Back to Home</button>
         </div>
       )}
+      <button className='back-arrow' onClick={() => navigate('/')}> <FaArrowLeft /> Home Page</button>
     </div>
   );
 };

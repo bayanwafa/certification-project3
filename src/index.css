@@ -1,12 +1,87 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
   margin: 0;
+  padding: 0;
 }
 
-img,
-svg {
-  display: block;
-  max-width: 100%;
+/* Navigation styling */
+nav {
+  background-color: #6e538a;
+  color: white;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3em;
+  border: 2px solid black;
+  padding: 10px 10px;
+  border-radius: 25px;
+}
+
+/* Hover effect for navigation links */
+nav a:hover {
+  text-decoration: underline;
+  color: #330466;
+  background-color: #d8cece;
+}
+
+/* Logo styling */
+header img {
+  width: 70px;
+  height: auto;
+}
+
+/* Header styling */
+header {
+  background-color: #6e538a;
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header h1 {
+  flex-grow: 1;
+}
+
+/* Back Button styling */
+.back-arrow {
+  background-color: #6e538a;
+  color: white;
+  font-size: 13px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center; 
+  margin: 15px;
+}
+
+.back-arrow svg {
+  margin-right: 5px;
+}
+
+.start-game {
+  background-color: #6e538a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.start-game:hover {
+  background-color: #4d3a63;
 }
