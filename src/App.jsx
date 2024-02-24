@@ -5,8 +5,7 @@ import QuizGame from './components/QuizGame';
 import QuizPage from './components/QuizPage';
 import QuizCreationPage from './components/QuizCreationPage';
 import Contact from './components/Contact';
-import quizzes from './data/quizData';
-
+import quizzes from './data/quiz.json';
 
 const App = () => {
   return (
@@ -18,10 +17,7 @@ const App = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/QuizGame">Quiz Game</Link>
-            </li>
-            <li>
-              <Link to="/create-quiz">Create Quiz</Link>
+              <Link to="/QuizGame">App</Link>
             </li>
             <li>
               <Link to="/Contact">Contact</Link>

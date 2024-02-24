@@ -1,0 +1,81 @@
+[
+  {
+    "name": "Math Challenge",
+    "questions": [
+      {
+        "question": "What is 2 + 2?",
+        "options": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "correct_answer": "4",
+        "points": 5
+      },
+      {
+        "question": "Solve: 3 * 5",
+        "options": [
+          "10",
+          "15",
+          "20",
+          "8"
+        ],
+        "correct_answer": "15",
+        "points": 5
+      }
+    ],
+    "highest_score": 10
+  },
+  {
+    "name": "Science Trivia",
+    "questions": [
+      {
+        "question": "What is the chemical symbol for water?",
+        "options": [
+          "H2O",
+          "CO2",
+          "O2",
+          "NaCl"
+        ],
+        "correct_answer": "H2O",
+        "points": 5
+      },
+      {
+        "question": "What is the closest planet to the Sun?",
+        "options": [
+          "Earth",
+          "Mars",
+          "Mercury",
+          "Venus"
+        ],
+        "correct_answer": "Mercury",
+        "points": 5
+      },
+      {
+        "question": "Which planet is known as the Red Planet?",
+        "options": [
+          "Venus",
+          "Jupiter",
+          "Mars",
+          "Saturn"
+        ],
+        "correct_answer": "Mars",
+        "points": 5
+      },
+      {
+        "question": "What is the boiling point of water?",
+        "options": [
+          "100°C",
+          "J50°C",
+          "0°C",
+          "200°C"
+        ],
+        "correct_answer": "100°C",
+        "points": 5
+      }
+
+    ],
+    "highest_score": 20
+  }
+]
