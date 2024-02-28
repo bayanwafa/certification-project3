@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 
 const QuizPage = ({ quizzes }) => {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ const QuizPage = ({ quizzes }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userResponses, setUserResponses] = useState({});
     const [score, setScore] = useState(0);
+    const [submitted, setSubmitted] = useState(false);
 
 
     useEffect(() => {
@@ -60,25 +62,27 @@ const QuizPage = ({ quizzes }) => {
         // Reset user responses and current question index
         setUserResponses({});
         setCurrentQuestionIndex(0);
+        // Set quiz as submitted
+        setSubmitted(true);
     };
 
-    const currentQuestion = quiz.questions[currentQuestionIndex] ;
+    const currentQuestion = quiz.questions[currentQuestionIndex];
 
 
     return (
-        <div>
+        <div className='quiz-container'>
             {quiz ? (
                 <div>
-                    <h2>{quiz.name}</h2>
-                    <p>(5 points for each question )</p>
-                    <div>
+                    <h2 className='quiz-title'>{quiz.name}</h2>
+                    <div className='question-container'>
+                        <p>(5 points for each question )</p>
                         {currentQuestion && (
                             <div>
-                                <h3>{currentQuestion.question}</h3>
-                                <ul>
+                                <h3 className='question'>{currentQuestion.question}</h3>
+                                <ul className='options-list'>
                                     {currentQuestion.options.map((option, index) => (
-                                        <li key={index}>
-                                            <label>
+                                        <li className='option-item' key={index}>
+                                            <label className='option-label'>
                                                 <input
                                                     type="radio"
                                                     name={`question-${currentQuestionIndex}`}
@@ -93,18 +97,22 @@ const QuizPage = ({ quizzes }) => {
                                 </ul>
                             </div>
                         )}
-                        <h3>Score: {score}/{quiz.highest_score}</h3>
-                        <div>
+                        <div className='submit-button'>
                             <button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
-                                Previous
+                            <GrLinkPrevious /> Previous
                             </button>
                             <button onClick={handleNextQuestion} disabled={currentQuestionIndex === quiz.questions.length - 1}>
-                                Next
+                                Next <GrLinkNext />
                             </button>
-                            {currentQuestionIndex ===  quiz.questions.length - 1 && (
-                                <button onClick={handleQuizSubmit}>Submit Quiz</button>
+                            {currentQuestionIndex === quiz.questions.length - 1 && (
+                                <button className='Submit-Quiz' onClick={handleQuizSubmit}>Submit Quiz</button>
                             )}
                         </div>
+                        {submitted && (
+                            <div>
+                                <h3 className='score'>Score: {score}/{quiz.highest_score}</h3>
+                            </div>
+                        )}
                     </div>
                 </div>
             ) : (

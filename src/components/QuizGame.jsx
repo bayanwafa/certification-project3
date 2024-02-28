@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import logo from '../image/quiz.jpg';
 import quizzes from '../data/quiz.json';
-
+import { IoAdd } from "react-icons/io5";
 
 const QuizGame = () => {
   const navigate = useNavigate();
@@ -17,14 +17,15 @@ const QuizGame = () => {
       </header>
 
       <h2>Select a Quiz</h2>
-      <ul>
+      <ul className='quiz-list'>
         {quizzes.map((quiz, index) => (
-          <li key={index}>
-            <Link to={`/quiz/${quiz.name}`}>{quiz.name}</Link>
+          <li className='quiz-item' key={index}>
+            <Link className='quiz-link' to={`/quiz/${quiz.name}`}>{quiz.name}</Link>
           </li>
         ))}
       </ul>
 
+      <IoAdd className='create-quiz-game' onClick={() => navigate('/create-quiz')} /> 
       <button className='back-arrow' onClick={() => navigate('/')}> <FaArrowLeft /> Home Page</button>
     </div>
   );

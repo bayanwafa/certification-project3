@@ -55,11 +55,12 @@ const Contact = () => {
         <h1>Contact Us</h1>
       </header>
       {!submitted ? (
-        <form onSubmit={handleSubmit}>
+        <form className='contact-form' onSubmit={handleSubmit}>
           <p> Have a question , feedback or problem? We'd love to hear from you! Write message in below to get in touch. </p>
           <div>
-            <label>Name:</label>
+            <label className='contact-lapel'>Name: </label>
             <input
+              className='contact-input'
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -68,8 +69,9 @@ const Contact = () => {
             {nameError && <p className="error">{nameError}</p>}
           </div>
           <div>
-            <label>Email:</label>
+            <label className='contact-lapel'>Email: </label>
             <input
+              className='contact-input'
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -78,17 +80,18 @@ const Contact = () => {
             {emailError && <p className="error">{emailError}</p>}
           </div>
           <div>
-            <label>Message:</label>
+            <label className='contact-lapel'>Message </label>
             <textarea
+              className='contact-input'
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
             />
           </div>
-          <button type="submit">Submit</button>
+          <button className='contact-submit' type="submit">Submit</button>
         </form>
       ) : (
-        <div>
+        <div className='message'>
           <p>Thank you for your message, We have received your request.</p>
         </div>
       )}

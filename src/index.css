@@ -7,7 +7,7 @@ body {
 
 /* Navigation styling */
 nav {
-  background-color: #6e538a;
+  background-color: #600000;
   color: white;
   padding: 10px;
 }
@@ -30,7 +30,7 @@ nav a {
 /* Hover effect for navigation links */
 nav a:hover {
   text-decoration: underline;
-  color: #330466;
+  color: #600000;
   background-color: #d8cece;
 }
 
@@ -42,12 +42,14 @@ header img {
 
 /* Header styling */
 header {
-  background-color: #6e538a;
+  background-color: #600000;
   color: white;
   padding: 10px;
   display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 header h1 {
@@ -56,24 +58,33 @@ header h1 {
 
 /* Back Button styling */
 .back-arrow {
-  background-color: #6e538a;
+  background-color: #600000;
   color: white;
-  font-size: 13px;
+  font-size: 16px;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   display: flex;
-  align-items: center; 
-  margin: 15px;
+  align-items: center;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
 }
 
 .back-arrow svg {
   margin-right: 5px;
 }
 
-.start-game, .create-quiz, .contact {
-  background-color: #6e538a;
+.back-arrow:hover {
+  font-weight: bold;
+}
+
+/*Home page buttons*/
+.start-game,
+.create-quiz,
+.contact {
+  background-color: #600000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -83,7 +94,197 @@ header h1 {
   margin: 5px;
 }
 
-.start-game:hover, .create-quiz:hover, .contact:hover {
-  background-color: #4d3a63;
+.start-game:hover,
+.create-quiz:hover,
+.contact:hover {
+  font-weight: bold;
+}
+
+.create-quiz-game {
+  border: none;
+  border-radius: 100%;
+  width: 25px;
+  height: 35px;
+  cursor: pointer;
+  background-color: #600000;
+  color: white;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/*contact page*/
+.contact-form {
+  background-color: #d8cece;
+  max-width: 100%;
+  margin: 50px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.error {
+  color: red;
+}
+
+.contact-form p {
+  display: block;
+  padding-bottom: 15px;
+  font-weight: bold;
+}
+
+.contact-lapel {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.contact-input {
+  max-width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.contact-submit {
+  background-color: rgb(0, 183, 0);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-submit:hover {
+  background-color: #0a6000;
+  font-weight: bold;
+}
+
+.message {
+  background-color: #d8cece;
+  max-width: 100%;
+  margin: 50px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+/* QuizGame */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.quiz-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-item {
+  margin: 10px;
+  background-color: #d8cece;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.quiz-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.quiz-link:hover {
+  color: #0153ab;
+}
+
+/* QuizPage */
+.quiz-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.quiz-title {
+  font-size: 28px;
+  margin-bottom: 50px;
+}
+
+.question-container {
+  margin: 30px;
+  background-color: #d8cece;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.question {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.options-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.option-item {
+  margin-bottom: 10px;
+}
+
+.option-label {
+  cursor: pointer;
+}
+
+.score{
+  font-size: 18px;
+  margin-top: 50px;
+}
+
+.submit-button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.submit-button button {
+  padding: 10px;
+  background-color: #0051a8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Style the icon inside the buttons */
+.submit-button button svg {
+  vertical-align: middle;
+  margin: 5px; 
+}
+
+.submit-button .Submit-Quiz {
+  background-color: #0a6000; 
 }
 
