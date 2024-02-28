@@ -77,5 +77,55 @@
 
     ],
     "highest_score": 20
+  },
+  {
+    "name": "Geography Quiz",
+    "questions": [
+      {
+        "question": "Which is the longest river in the world?",
+        "options": [
+          "Amazon",
+          "Nile",
+          "Mississippi",
+          "Yangtze"
+        ],
+        "correct_answer": "Nile",
+        "points": 5
+      },
+      {
+        "question": "What is the capital of Australia?",
+        "options": [
+          "Sydney",
+          "Melbourne",
+          "Canberra",
+          "Brisbane"
+        ],
+        "correct_answer": "Canberra",
+        "points": 5
+      },
+      {
+        "question": "Which country is known as the Land of the Rising Sun?",
+        "options": [
+          "China",
+          "Japan",
+          "India",
+          "South Korea"
+        ],
+        "correct_answer": "Japan",
+        "points": 5
+      },
+      {
+        "question": "What is the largest continent by land area?",
+        "options": [
+          "Africa",
+          "Europe",
+          "Asia",
+          "North America"
+        ],
+        "correct_answer": "Asia",
+        "points": 5
+      }
+    ],
+    "highest_score": 20
   }
 ]

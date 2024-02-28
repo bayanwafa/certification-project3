@@ -70,10 +70,12 @@ const QuizPage = ({ quizzes }) => {
 
 
     return (
-        <div className='quiz-container'>
+        <div>
             {quiz ? (
                 <div>
-                    <h2 className='quiz-title'>{quiz.name}</h2>
+                    <header>
+                        <h2 className='quiz-title'>{quiz.name}</h2>
+                    </header>
                     <div className='question-container'>
                         <p>(5 points for each question )</p>
                         {currentQuestion && (
@@ -99,7 +101,7 @@ const QuizPage = ({ quizzes }) => {
                         )}
                         <div className='submit-button'>
                             <button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
-                            <GrLinkPrevious /> Previous
+                                <GrLinkPrevious /> Previous
                             </button>
                             <button onClick={handleNextQuestion} disabled={currentQuestionIndex === quiz.questions.length - 1}>
                                 Next <GrLinkNext />

@@ -214,18 +214,13 @@ h2 {
 }
 
 /* QuizPage */
-.quiz-container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 .quiz-title {
   font-size: 28px;
-  margin-bottom: 50px;
 }
 
 .question-container {
-  margin: 30px;
+  max-width: 600px;
+  margin: 0 auto;
   background-color: #d8cece;
   border: 1px solid #ccc;
   border-radius: 8px;
