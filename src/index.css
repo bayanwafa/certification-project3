@@ -353,6 +353,7 @@ h2 {
 .quiz-buttons button {
   background-color: #600000;
   color: white;
+  font-size: medium;
   border: none;
   border-radius: 3px;
   padding: 8px 12px;
@@ -366,11 +367,12 @@ h2 {
 
 .load-quiz-button {
   display: inline-block;
-  color: #0056b3;
+  background-color: #600000;
+  color: white;
   border: none;
   border-radius: 3px;
   padding: 8px;
-  margin: 5px;
+  margin: 10px;
   cursor: pointer;
 }
 
