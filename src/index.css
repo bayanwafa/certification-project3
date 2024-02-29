@@ -67,7 +67,7 @@ header h1 {
   cursor: pointer;
   display: flex;
   align-items: center;
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   left: 20px;
 }
@@ -109,7 +109,7 @@ header h1 {
   background-color: #600000;
   color: white;
   padding: 10px 20px;
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   text-align: center;
@@ -120,8 +120,8 @@ header h1 {
   cursor: pointer;
 }
 
-/*contact page*/
-.contact-form {
+/*contact page and QuizCreationPage*/
+.form {
   background-color: #d8cece;
   max-width: 100%;
   margin: 50px;
@@ -140,20 +140,23 @@ header h1 {
   font-weight: bold;
 }
 
-.contact-lapel {
+.label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.contact-input {
+.input {
   max-width: 90%;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   margin-bottom: 10px;
+  margin-left: 5px;
 }
 
 .contact-submit {
-  background-color: rgb(0, 183, 0);
+  background-color: #0a6000;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -162,7 +165,7 @@ header h1 {
 }
 
 .contact-submit:hover {
-  background-color: #0a6000;
+  background-color: #45a049;
   font-weight: bold;
 }
 
@@ -201,6 +204,7 @@ h2 {
   height: 100px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .quiz-link {
@@ -245,7 +249,7 @@ h2 {
   cursor: pointer;
 }
 
-.score{
+.score {
   font-size: 18px;
   margin-top: 50px;
 }
@@ -276,10 +280,104 @@ h2 {
 /* Style the icon inside the buttons */
 .submit-button button svg {
   vertical-align: middle;
-  margin: 5px; 
+  margin: 5px;
 }
 
 .submit-button .Submit-Quiz {
-  background-color: #0a6000; 
+  background-color: #0a6000;
 }
 
+.submit-button .Submit-Quiz:hover {
+  background-color: #45a049;
+}
+
+/* QuizCreationPage */
+.quiz-form-button {
+  background-color: #0a6000;
+  padding: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quiz-form-button:hover {
+  background-color: #45a049;
+}
+
+.question-list {
+  list-style: none;
+  padding: 0;
+}
+
+.question-list li {
+  background-color: #f3ecec;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.question-list li ul {
+  list-style: none;
+  padding: 0;
+}
+
+.question-list li ul li {
+  margin-bottom: 5px;
+}
+
+.question-list button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.question-list button:hover {
+  background-color: #0056b3;
+}
+
+.total-points {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.quiz-buttons {
+  margin-top: 30px;
+}
+
+.quiz-buttons button {
+  background-color: #600000;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.quiz-buttons button:hover {
+  font-weight: bold;
+}
+
+.load-quiz-button {
+  display: inline-block;
+  color: #0056b3;
+  border: none;
+  border-radius: 3px;
+  padding: 8px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.load-quiz-button:hover {
+  text-decoration: underline;
+}
+
+#file-input {
+  display: none;
+}

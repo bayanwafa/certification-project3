@@ -25,7 +25,10 @@ const QuizGame = () => {
         ))}
       </ul>
 
+      {/* Button to navigate to quiz creation page */}
       <IoAdd className='create-quiz-game' onClick={() => navigate('/create-quiz')} /> 
+
+      {/* Button to navigate back */}
       <button className='back-arrow' onClick={() => navigate('/')}> <FaArrowLeft /> Home Page</button>
     </div>
   );

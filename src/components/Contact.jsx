@@ -55,12 +55,12 @@ const Contact = () => {
         <h1>Contact Us</h1>
       </header>
       {!submitted ? (
-        <form className='contact-form' onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           <p> Have a question , feedback or problem? We'd love to hear from you! Write message in below to get in touch. </p>
           <div>
-            <label className='contact-lapel'>Name: </label>
+            <label className='label'>Name: </label>
             <input
-              className='contact-input'
+              className='input'
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -69,9 +69,9 @@ const Contact = () => {
             {nameError && <p className="error">{nameError}</p>}
           </div>
           <div>
-            <label className='contact-lapel'>Email: </label>
+            <label className='label'>Email: </label>
             <input
-              className='contact-input'
+              className='input'
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -80,9 +80,9 @@ const Contact = () => {
             {emailError && <p className="error">{emailError}</p>}
           </div>
           <div>
-            <label className='contact-lapel'>Message </label>
+            <label className='label'>Message </label>
             <textarea
-              className='contact-input'
+              className='input'
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
@@ -95,6 +95,8 @@ const Contact = () => {
           <p>Thank you for your message, We have received your request.</p>
         </div>
       )}
+
+      {/* Button to navigate back */}
       <button className='back-arrow' onClick={() => navigate('/')}> <FaArrowLeft /> Home Page</button>
     </div>
   );

@@ -1,6 +1,6 @@
 [
   {
-    "name": "Math Challenge",
+    "name": "Math Quiz",
     "questions": [
       {
         "question": "What is 2 + 2?",
@@ -28,7 +28,7 @@
     "highest_score": 10
   },
   {
-    "name": "Science Trivia",
+    "name": "Science Quiz",
     "questions": [
       {
         "question": "What is the chemical symbol for water?",

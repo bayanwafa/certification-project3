@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaEdit, FaTrash } from 'react-icons/fa';
 
 const QuizCreationPage = () => {
   const navigate = useNavigate();
@@ -8,6 +8,9 @@ const QuizCreationPage = () => {
   const [questions, setQuestions] = useState([]);
   const [newQuestion, setNewQuestion] = useState({ question: '', options: ['', '', '', ''], correctAnswer: '', points: 5 });
   const [editingIndex, setEditingIndex] = useState(null);
+  const [totalPoints, setTotalPoints] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -31,20 +34,25 @@ const QuizCreationPage = () => {
         setQuestions([...questions, newQuestion]);
       }
       setNewQuestion({ question: '', options: ['', '', '', ''], correctAnswer: '', points: 5 });
+      setErrorMessage(''); // Clear error message if no error
     } else {
-      alert('Please fill in all fields for the question.');
+      setErrorMessage('Please fill in all fields for the question.');
     }
   };
 
   const editQuestion = (index) => {
     setNewQuestion(questions[index]);
     setEditingIndex(index);
+    window.scrollTo(0, 0);
   };
 
   const removeQuestion = (index) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions.splice(index, 1);
-    setQuestions(updatedQuestions);
+    if (window.confirm("Are you sure you want to delete this question?")) {
+      const updatedQuestions = [...questions];
+      updatedQuestions.splice(index, 1);
+      setQuestions(updatedQuestions);
+      calculateTotalPoints();
+    }
   };
 
   const handleSubmit = (event) => {
@@ -53,30 +61,101 @@ const QuizCreationPage = () => {
     console.log({ quizName, questions });
   };
 
+  // Function to calculate the total points
+  const calculateTotalPoints = () => {
+    let total = 0;
+    questions.forEach(question => {
+      total += parseInt(question.points);
+    });
+    setTotalPoints(total);
+  };
+
+  useEffect(() => {
+    calculateTotalPoints();
+  }, [questions]); // Call calculateTotalPoints whenever questions change
+
+
+  const handleDeleteQuiz = (index) => {
+    if (window.confirm("Are you sure you want to delete this quiz?")) {
+      const updatedQuizzes = [...quizzes];
+      updatedQuizzes.splice(index, 1);
+      setQuizzes(updatedQuizzes);
+    }
+  };
+
+
+  const saveQuizToFile = (quizData, fileName) => {
+    const json = JSON.stringify(quizData); // Use quizData instead of dataWithTotalPoints
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName + '.json';
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Function to save the quiz to a JSON file
+  const handleSaveQuiz = () => {
+    saveQuizToFile({ quizName, questions }, 'quiz_data');
+  };
+
+  const loadQuizFromFile = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+
+          const quizData = JSON.parse(event.target.result);
+          resolve(quizData);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      reader.readAsText(file);
+    });
+  };
+
+  const handleLoadQuiz = async (event) => {
+    const file = event.target.files[0];
+    try {
+      const loadedQuizData = await loadQuizFromFile(file);
+
+      setQuizName(loadedQuizData.quizName);
+      setQuestions(loadedQuizData.questions);
+
+      const pointsSum = loadedQuizData.questions.reduce((acc, curr) => acc + curr.points, 0);
+      setTotalPoints(pointsSum);
+    } catch (error) {
+      console.error('Error loading quiz:', error);
+    }
+  };
+
 
   return (
     <div>
       <header>
         <h1>Create Quiz</h1>
       </header>
-      
-      <form onSubmit={handleSubmit}>
-        <label>
+
+      <form className="form" onSubmit={handleSubmit}>
+        <label className='label'>
           Quiz Name:
-          <input type="text" value={quizName} onChange={(e) => setQuizName(e.target.value)} required />
+          <input className='input' type="text" value={quizName} onChange={(e) => setQuizName(e.target.value)} required />
         </label>
-        <br />
         <h3>{editingIndex !== null ? 'Edit Question' : 'Add New Question'}</h3>
-        <label>
+        <label className='label'>
           Question:
-          <input type="text" name="question" value={newQuestion.question} onChange={handleInputChange} required />
+          <input className='input' type="text" name="question" value={newQuestion.question} onChange={handleInputChange} required />
         </label>
         <br />
         {newQuestion.options.map((option, index) => (
           <div key={index}>
-            <label>
+            <label className='label'>
               Option {index + 1}:
               <input
+                className='input'
                 type="text"
                 value={option}
                 onChange={(e) => handleOptionChange(index, e.target.value)}
@@ -85,9 +164,9 @@ const QuizCreationPage = () => {
             </label>
           </div>
         ))}
-        <label>
+        <label className='label'>
           Correct Answer:
-          <select name="correctAnswer" value={newQuestion.correctAnswer} onChange={handleInputChange} required>
+          <select className='input' name="correctAnswer" value={newQuestion.correctAnswer} onChange={handleInputChange} required>
             <option value="">Select Correct Answer</option>
             {newQuestion.options.map((option, index) => (
               <option key={index} value={option}>{option}</option>
@@ -95,18 +174,21 @@ const QuizCreationPage = () => {
           </select>
         </label>
         <br />
-        <label>
+        <label className='label'>
           Points:
-          <input type="number" name="points" value={newQuestion.points} onChange={handleInputChange} min="1" required />
+          <input className='input' type="number" name="points" value={newQuestion.points} onChange={handleInputChange} min="1" required />
         </label>
         <br />
-        <button type="button" onClick={addQuestion}>{editingIndex !== null ? 'Save Changes' : 'Add Question'}</button>
+        <button className='quiz-form-button' type="button" onClick={addQuestion}>{editingIndex !== null ? 'Save Changes' : 'Add Question'}</button>
         <br />
-        </form>
-        
-        <form>
-        <h3>Quizzes</h3>
-        <ul>
+        <p className="error">{errorMessage}</p>
+      </form>
+
+      {/* List of questions */}
+      <form className="form">
+        <h3>Quiz: {quizName}</h3>
+        <h3>Questions</h3>
+        <ul className="question-list">
           {questions.map((question, index) => (
             <li key={index}>
               <div>
@@ -117,17 +199,35 @@ const QuizCreationPage = () => {
                   <li key={oIndex}>{option}</li>
                 ))}
               </ul>
-              <button type="button" onClick={() => editQuestion(index)}>Edit</button>
-              <button type="button" onClick={() => removeQuestion(index)}>Remove</button>
+              <button type="button" onClick={() => editQuestion(index)}>Edit <FaEdit /></button>
+              <button type="button" onClick={() => removeQuestion(index)}>Remove <FaTrash /></button>
             </li>
           ))}
         </ul>
-        
-        <button type="submit">Save Quiz</button>
-        </form>
 
-      <button className='back-arrow' onClick={() => navigate('/')}> <FaArrowLeft /> Home Page </button>
-    </div>
+        {/* Display total points */}
+        <p className="total-points">Total Points: {totalPoints}</p>
+
+        {/* Buttons for deleting and saving the quiz */}
+        <div className="quiz-buttons">
+          <button onClick={handleDeleteQuiz}>Delete Quiz</button>
+          <button onClick={handleSaveQuiz}>Save Quiz</button>
+        </div>
+
+        {/* Button to load quiz from file */}
+        <label htmlFor="file-input" className="load-quiz-button">Load Quiz</label>
+        <input
+          id="file-input"
+          type="file"
+          accept=".json"
+          onChange={handleLoadQuiz}
+          style={{ display: 'none' }}
+        />
+      </form >
+
+      {/* Button to navigate back */}
+      < button className='back-arrow' onClick={() => navigate('/')}> <FaArrowLeft /> Home Page </button >
+    </div >
   );
 };
 
