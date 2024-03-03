@@ -83,55 +83,39 @@ const QuizCreationPage = () => {
     }
   };
 
+  const handleSaveQuiz = () => {
+    const quizData = { quizName, questions }; // Quiz data from the state
+    const fileName = 'quiz_data.json'; // Default file name
+    const defaultQuizData = { quizName: 'My Quiz', questions: [{ question: 'Question 1', answer: 'Answer 1' }] }; // Default quiz data
 
-  const saveQuizToFile = (quizData, fileName) => {
-    const json = JSON.stringify(quizData); // Use quizData instead of dataWithTotalPoints
-    const blob = new Blob([json], { type: 'application/json' });
+    const jsonData = JSON.stringify(quizData || defaultQuizData);
+    const blob = new Blob([jsonData], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
+
+    // Create a temporary anchor element
     const a = document.createElement('a');
     a.href = url;
-    a.download = fileName + '.json';
-    document.body.appendChild(a);
+    a.download = fileName;
+
+    // Trigger a click event to initiate the download
     a.click();
+
+    // Clean up
     URL.revokeObjectURL(url);
   };
 
-  // Function to save the quiz to a JSON file
-  const handleSaveQuiz = () => {
-    saveQuizToFile({ quizName, questions }, 'quiz_data');
-  };
-
-  const loadQuizFromFile = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-
-          const quizData = JSON.parse(event.target.result);
-          resolve(quizData);
-        } catch (error) {
-          reject(error);
-        }
-      };
-      reader.readAsText(file);
-    });
-  };
-
-  const handleLoadQuiz = async (event) => {
+  const handleLoadQuiz = (event) => {
     const file = event.target.files[0];
-    try {
-      const loadedQuizData = await loadQuizFromFile(file);
+    const reader = new FileReader();
 
-      setQuizName(loadedQuizData.quizName);
-      setQuestions(loadedQuizData.questions);
+    reader.onload = (event) => {
+      const data = JSON.parse(event.target.result);
+      setQuizName(data.quizName);
+      setQuestions(data.questions);
+    };
 
-      const pointsSum = loadedQuizData.questions.reduce((acc, curr) => acc + curr.points, 0);
-      setTotalPoints(pointsSum);
-    } catch (error) {
-      console.error('Error loading quiz:', error);
-    }
+    reader.readAsText(file);
   };
-
 
   return (
     <div>
