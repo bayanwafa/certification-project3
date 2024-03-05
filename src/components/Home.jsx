@@ -20,7 +20,7 @@ const Home = () => {
       </div>
 
       <div className="contact-home">
-        <p>If you want to contact us click here</p>
+        <p>If you want to contact us, click here</p>
         <button className='contact' onClick={() => navigate('/Contact')}> Contact Us</button>
       </div>
     </div>

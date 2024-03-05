@@ -1,3 +1,4 @@
+//QuizGame
 // Action Types
 export const FETCH_QUIZZES_REQUEST = 'FETCH_QUIZZES_REQUEST';
 export const FETCH_QUIZZES_SUCCESS = 'FETCH_QUIZZES_SUCCESS';
@@ -40,7 +41,7 @@ export const fetchQuizzes = () => {
 };
 
 
-
+//Contact
 // Define action types
 export const SUBMIT_CONTACT_FORM_REQUEST = 'SUBMIT_CONTACT_FORM_REQUEST';
 export const SUBMIT_CONTACT_FORM_SUCCESS = 'SUBMIT_CONTACT_FORM_SUCCESS';

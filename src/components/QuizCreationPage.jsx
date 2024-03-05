@@ -120,7 +120,7 @@ const QuizCreationPage = () => {
   return (
     <div>
       <header>
-        <h1>Create Quiz</h1>
+        <h1>Create Quiz Page</h1>
       </header>
 
       <form className="form" onSubmit={handleSubmit}>

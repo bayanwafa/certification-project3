@@ -44,7 +44,7 @@ const Contact = () => {
   return (
     <div>
       <header>
-        <h1>Contact Us</h1>
+        <h1>Contact Page</h1>
       </header>
       {!submitted ? (
         <form className='form' onSubmit={handleSubmit}>
@@ -72,7 +72,7 @@ const Contact = () => {
             {emailError && <p className="error">{emailError}</p>}
           </div>
           <div>
-            <label className='label'>Message </label>
+            <label className='label'>Message: </label>
             <textarea
               className='input'
               value={message}
