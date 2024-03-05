@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { fetchQuizzes } from '../reducers/actions';
 import logo from '../image/quiz.jpg';
 import quizzes from '../data/quiz.json';
 import { IoAdd } from "react-icons/io5";
 
 const QuizGame = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchQuizzes()); 
+  }, [dispatch]);
 
   return (
     <div>

@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { submitContactForm } from '../reducers/actions';
 
 const Contact = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const submitted = useSelector(state => state.contact.submitted);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [submitted, setSubmitted] = useState(false);
 
   const validateName = (name) => {
     const nameRegex = /^[a-zA-Z\s]*$/; // Regular expression for alphabets only
@@ -34,20 +38,8 @@ const Contact = () => {
       return;
     }
 
-    // Process feedback here (e.g., send to server)
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Message:', message);
-
-    // Clear form fields
-    setName('');
-    setEmail('');
-    setMessage('');
-
-    // Set form submitted status to true
-    setSubmitted(true);
+    dispatch(submitContactForm({ name, email, message }));
   };
-
 
   return (
     <div>
