@@ -1,51 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentQuestionIndex, setUserResponse, setScore, setSubmitted } from '../reducers/quizReducer';
 
 const QuizPage = ({ quizzes }) => {
     const navigate = useNavigate();
     const { id } = useParams();
     const parsedId = id;
+    // Fetching the quiz based on the parsedId
     const quiz = quizzes.find((quiz) => quiz.name === parsedId);
 
-
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [userResponses, setUserResponses] = useState({});
-    const [score, setScore] = useState(0);
-    const [submitted, setSubmitted] = useState(false);
-
+    // Fetching quiz state from Redux store
+    const dispatch = useDispatch();
+    const currentQuestionIndex = useSelector(state => state.quiz.currentQuestionIndex);
+    const userResponses = useSelector(state => state.quiz.userResponses);
+    const score = useSelector(state => state.quiz.score);
+    const submitted = useSelector(state => state.quiz.submitted);
 
     useEffect(() => {
         if (!quiz) return; // Ensure quiz is defined before accessing its properties
         // Load score from local storage for this quiz
         const storedScore = localStorage.getItem(`quiz-${parsedId}-score`);
         if (storedScore) {
-            setScore(parseInt(storedScore));
+            dispatch(setScore(parseInt(storedScore)));
         }
-    }, [parsedId, quiz]);
+    }, [dispatch, parsedId, quiz]);
 
 
     const handleAnswerSelect = (selectedOption) => {
-        setUserResponses((prevResponses) => ({
-            ...prevResponses,
-            [currentQuestionIndex]: selectedOption,
-        }));
+        dispatch(setUserResponse({ questionIndex: currentQuestionIndex, selectedOption }));
     };
-
 
     const handleNextQuestion = () => {
-        setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, (quiz && quiz.questions.length) ? quiz.questions.length - 1 : 0));
+        dispatch(setCurrentQuestionIndex(Math.min(currentQuestionIndex + 1, (quiz && quiz.questions.length) ? quiz.questions.length - 1 : 0)));
     };
-
 
     const handlePreviousQuestion = () => {
-        setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+        dispatch(setCurrentQuestionIndex(Math.max(currentQuestionIndex - 1, 0)));
     };
-
 
     const handleQuizSubmit = () => {
         if (!quiz) return; // Ensure quiz is defined before accessing its properties
+
         // Calculate score based on user responses
         let newScore = 0;
         quiz.questions.forEach((question, index) => {
@@ -55,19 +53,19 @@ const QuizPage = ({ quizzes }) => {
         });
 
         // Update user's score for each quiz
-        setScore(newScore);
+        dispatch(setScore(newScore));
         localStorage.setItem(`quiz-${parsedId}-score`, newScore.toString()); // Save new score to local storage
 
-
         // Reset user responses and current question index
-        setUserResponses({});
-        setCurrentQuestionIndex(0);
+        dispatch(setUserResponse({})); // Change setUserResponses to setUserResponse
+        dispatch(setCurrentQuestionIndex(0));
+
         // Set quiz as submitted
-        setSubmitted(true);
+        dispatch(setSubmitted(true));
     };
 
-    const currentQuestion = quiz.questions[currentQuestionIndex];
-
+    // Null check for quiz to prevent accessing undefined properties
+    const currentQuestion = quiz && quiz.questions[currentQuestionIndex];
 
     return (
         <div>
