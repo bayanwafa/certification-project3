@@ -13,7 +13,7 @@ const QuizGame = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchQuizzes()); 
+    dispatch(fetchQuizzes());
   }, [dispatch]);
 
   return (
@@ -33,7 +33,7 @@ const QuizGame = () => {
       </ul>
 
       {/* Button to navigate to quiz creation page */}
-      <IoAdd className='create-quiz-game' onClick={() => navigate('/create-quiz')} /> 
+      <IoAdd className='create-quiz-game' onClick={() => navigate('/create-quiz')} />
 
       {/* Button to navigate back */}
       <button className='back-arrow' onClick={() => navigate('/')}> <FaArrowLeft /> Home Page</button>

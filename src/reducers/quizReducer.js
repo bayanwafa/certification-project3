@@ -37,6 +37,6 @@ const quizSlice = createSlice({
   },
 });
 
-export const {setQuizzes, setCurrentQuestionIndex, setUserResponse, setScore, setSubmitted, resetQuizState,} = quizSlice.actions;
+export const { setQuizzes, setCurrentQuestionIndex, setUserResponse, setScore, setSubmitted, resetQuizState, } = quizSlice.actions;
 
 export default quizSlice.reducer;
