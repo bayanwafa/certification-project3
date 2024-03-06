@@ -73,6 +73,6 @@ export const submitContactForm = ({ name, email, message }) => {
       } catch (error) {
         dispatch(submitContactFormFailure(error.message));
       }
-    }, 1000); // Simulated delay
+    }, 500); // Simulated delay
   };
 };

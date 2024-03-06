@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitContactForm } from '../reducers/actions';
+import { setSubmitted } from '../reducers/quizReducer';
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -38,8 +39,23 @@ const Contact = () => {
       return;
     }
 
-    dispatch(submitContactForm({ name, email, message }));
+    // Dispatch an action to submit the contact form
+    dispatch(submitContactForm({ name: name, email: email, message: message }));
+
+    // Process feedback here (e.g., send to server)
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Message:', message);
+
+    // Clear form fields
+    setName('');
+    setEmail('');
+    setMessage('');
+
+    // Dispatch an action to set the submitted status in the Redux store
+    dispatch(setSubmitted(true));
   };
+
 
   return (
     <div>
