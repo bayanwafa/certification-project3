@@ -1,26 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaEdit, FaTrash } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setQuizName,
+  setQuestions,
+  setNewQuestion,
+  setEditingIndex,
+  setTotalPoints,
+  setErrorMessage,
+  resetQuizCreationState,
+} from '../reducers/quizCreationSlice';
 
 const QuizCreationPage = () => {
   const navigate = useNavigate();
-  const [quizName, setQuizName] = useState('');
-  const [questions, setQuestions] = useState([]);
-  const [newQuestion, setNewQuestion] = useState({ question: '', options: ['', '', '', ''], correctAnswer: '', points: 5 });
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [totalPoints, setTotalPoints] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
+  const quizName = useSelector(state => state.quizCreation.quizName);
+  const questions = useSelector(state => state.quizCreation.questions);
+  const newQuestion = useSelector(state => state.quizCreation.newQuestion);
+  const editingIndex = useSelector(state => state.quizCreation.editingIndex);
+  const totalPoints = useSelector(state => state.quizCreation.totalPoints);
+  const errorMessage = useSelector(state => state.quizCreation.errorMessage);
 
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setNewQuestion({ ...newQuestion, [name]: value });
+    dispatch(setNewQuestion({ ...newQuestion, [name]: value }));
   };
 
   const handleOptionChange = (index, value) => {
     const updatedOptions = [...newQuestion.options];
     updatedOptions[index] = value;
-    setNewQuestion({ ...newQuestion, options: updatedOptions });
+    dispatch(setNewQuestion({ ...newQuestion, options: updatedOptions }));
   };
 
   const addQuestion = () => {
@@ -28,21 +39,21 @@ const QuizCreationPage = () => {
       if (editingIndex !== null) {
         const updatedQuestions = [...questions];
         updatedQuestions[editingIndex] = newQuestion;
-        setQuestions(updatedQuestions);
-        setEditingIndex(null);
+        dispatch(setQuestions(updatedQuestions));
+        dispatch(setEditingIndex(null));
       } else {
-        setQuestions([...questions, newQuestion]);
+        dispatch(setQuestions([...questions, newQuestion]));
       }
-      setNewQuestion({ question: '', options: ['', '', '', ''], correctAnswer: '', points: 5 });
-      setErrorMessage(''); // Clear error message if no error
+      dispatch(setNewQuestion({ question: '', options: ['', '', '', ''], correctAnswer: '', points: 5 }));
+      dispatch(setErrorMessage('')); // Clear error message if no error
     } else {
-      setErrorMessage('Please fill in all fields for the question.');
+      dispatch(setErrorMessage('Please fill in all fields for the question.'));
     }
   };
 
   const editQuestion = (index) => {
-    setNewQuestion(questions[index]);
-    setEditingIndex(index);
+    dispatch(setNewQuestion(questions[index]));
+    dispatch(setEditingIndex(index));
     window.scrollTo(0, 0);
   };
 
@@ -50,8 +61,8 @@ const QuizCreationPage = () => {
     if (window.confirm("Are you sure you want to delete this question?")) {
       const updatedQuestions = [...questions];
       updatedQuestions.splice(index, 1);
-      setQuestions(updatedQuestions);
-      calculateTotalPoints();
+      dispatch(setQuestions(updatedQuestions));
+      dispatch(calculateTotalPoints(updatedQuestions));
     }
   };
 
@@ -67,11 +78,11 @@ const QuizCreationPage = () => {
     questions.forEach(question => {
       total += parseInt(question.points);
     });
-    setTotalPoints(total);
+    return total;
   };
 
   useEffect(() => {
-    calculateTotalPoints();
+    dispatch(setTotalPoints(calculateTotalPoints(questions)));
   }, [questions]); // Call calculateTotalPoints whenever questions change
 
 
@@ -79,7 +90,7 @@ const QuizCreationPage = () => {
     if (window.confirm("Are you sure you want to delete this quiz?")) {
       const updatedQuizzes = [...quizzes];
       updatedQuizzes.splice(index, 1);
-      setQuizzes(updatedQuizzes);
+      dispatch(setQuizzes(updatedQuizzes));
     }
   };
 
@@ -109,9 +120,15 @@ const QuizCreationPage = () => {
     const reader = new FileReader();
 
     reader.onload = (event) => {
-      const data = JSON.parse(event.target.result);
-      setQuizName(data.quizName);
-      setQuestions(data.questions);
+      try {
+        // Parse the JSON data from the file
+        const data = JSON.parse(event.target.result);
+        dispatch(setQuizName(data.quizName));
+        dispatch(setQuestions(data.questions));
+        console.log('Quiz loaded successfully from file:', file.name);
+      } catch (error) {
+        console.error('Error loading quiz from file:', error);
+      }
     };
 
     reader.readAsText(file);
@@ -126,7 +143,7 @@ const QuizCreationPage = () => {
       <form className="form" onSubmit={handleSubmit}>
         <label className='label'>
           Quiz Name:
-          <input className='input' type="text" value={quizName} onChange={(e) => setQuizName(e.target.value)} required />
+          <input className='input' type="text" value={quizName} onChange={(e) => dispatch(setQuizName(e.target.value))} required />
         </label>
         <h3>{editingIndex !== null ? 'Edit Question' : 'Add New Question'}</h3>
         <label className='label'>

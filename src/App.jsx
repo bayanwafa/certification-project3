@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setQuizzes } from './reducers/quizReducer';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store';
 
 import Home from './components/Home';
 import QuizGame from './components/QuizGame';
@@ -21,7 +19,6 @@ const App = () => {
 
 
   return (
-    <Provider store={store}>
       <Router>
         <div>
           <nav>
@@ -46,7 +43,6 @@ const App = () => {
           </Routes>
         </div>
       </Router>
-    </Provider >
   );
 }
 

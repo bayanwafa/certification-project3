@@ -13,13 +13,18 @@ import { Provider } from 'react-redux'
  * Importing reducers
  */
 import testReducer from './reducers/testReducer.js'
-
+import quizReducer from './reducers/quizReducer';
+import { contactReducer } from './reducers/contactReducer';
+import quizCreationSlice from './reducers/quizCreationSlice';
 /**
  * Creating the store w/reducers
  */
 const store = configureStore({
   reducer: {
-    test: testReducer
+    test: testReducer,
+    quiz: quizReducer,
+    contact: contactReducer,
+    quizCreation: quizCreationSlice,
   }
 })
 
