@@ -2,15 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaEdit, FaTrash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setQuizName,
-  setQuestions,
-  setNewQuestion,
-  setEditingIndex,
-  setTotalPoints,
-  setErrorMessage,
-  resetQuizCreationState,
-} from '../reducers/quizCreationSlice';
+import { setQuizName, setQuestions, setNewQuestion, setEditingIndex, setTotalPoints, setErrorMessage, resetQuizCreationState, } from '../reducers/quizCreationSlice';
 import quizService from '../services/quizService';
 
 const QuizCreationPage = () => {
@@ -63,7 +55,7 @@ const QuizCreationPage = () => {
       const updatedQuestions = [...questions];
       updatedQuestions.splice(index, 1);
       dispatch(setQuestions(updatedQuestions));
-      dispatch(calculateTotalPoints(updatedQuestions));
+      dispatch(setTotalPoints(calculateTotalPoints(updatedQuestions)));
     }
   };
 
@@ -151,7 +143,7 @@ const QuizCreationPage = () => {
 
     const reader = new FileReader();
 
-    reader.onload = (event) => { 
+    reader.onload = (event) => {
       try {
         // Parse the JSON data from the file
         const data = JSON.parse(event.target.result);
