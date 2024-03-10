@@ -11,6 +11,7 @@ import {
   setErrorMessage,
   resetQuizCreationState,
 } from '../reducers/quizCreationSlice';
+import quizService from '../services/quizService';
 
 const QuizCreationPage = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const QuizCreationPage = () => {
   };
 
   // Function to calculate the total points
-  const calculateTotalPoints = () => {
+  const calculateTotalPoints = (questions) => {
     let total = 0;
     questions.forEach(question => {
       total += parseInt(question.points);
@@ -82,8 +83,9 @@ const QuizCreationPage = () => {
   };
 
   useEffect(() => {
+    // Calculate total points whenever questions change
     dispatch(setTotalPoints(calculateTotalPoints(questions)));
-  }, [questions]); // Call calculateTotalPoints whenever questions change
+  }, [questions, dispatch]);
 
 
   const handleDeleteQuiz = (index) => {
@@ -91,6 +93,7 @@ const QuizCreationPage = () => {
       const updatedQuizzes = [...quizzes];
       updatedQuizzes.splice(index, 1);
       dispatch(setQuizzes(updatedQuizzes));
+      removeQuiz(); // Call removeQuiz to remove the quiz from localStorage
     }
   };
 
@@ -113,16 +116,46 @@ const QuizCreationPage = () => {
 
     // Clean up
     URL.revokeObjectURL(url);
+
+    // Save quiz data to localStorage
+    quizService.saveQuiz(quizData);
   };
 
+  // Save quiz data to localStorage whenever questions or quizName change
+  useEffect(() => {
+    quizService.saveQuiz({ quizName, questions });
+  }, [quizName, questions]);
+
+
+  // Load quiz data from localStorage on component mount
+  useEffect(() => {
+    const savedQuiz = quizService.loadQuiz();
+    if (savedQuiz) {
+      dispatch(setQuizName(savedQuiz.quizName));
+      dispatch(setQuestions(savedQuiz.questions));
+    }
+  }, [dispatch]);
+
   const handleLoadQuiz = (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files[0]; // Get the selected file
+
+    if (!file) {
+      console.error('No file selected.');
+      return;
+    }
+
+    if (!file.name.endsWith('.json')) {
+      console.error('Invalid file format. Please select a JSON file.');
+      return;
+    }
+
     const reader = new FileReader();
 
-    reader.onload = (event) => {
+    reader.onload = (event) => { 
       try {
         // Parse the JSON data from the file
         const data = JSON.parse(event.target.result);
+        // Dispatch actions to set quiz name and questions
         dispatch(setQuizName(data.quizName));
         dispatch(setQuestions(data.questions));
         console.log('Quiz loaded successfully from file:', file.name);
@@ -131,8 +164,10 @@ const QuizCreationPage = () => {
       }
     };
 
+    // Read the contents of the file as text
     reader.readAsText(file);
   };
+
 
   return (
     <div>
