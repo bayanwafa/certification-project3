@@ -14,11 +14,15 @@ Welcome to the Quiz Application! This project is a web application that allows u
 
 ## Technologies Used
 
-- **Frontend**: The frontend of the application is built using React.js, a popular JavaScript library for building user interfaces. React Router is used for client-side routing to navigate between different pages. Redux is also utilized for state management, allowing for a more organized and centralized approach to managing application state across components.
+- **Frontend**: 
+The frontend of the application is built using React.js, a popular JavaScript library for building user interfaces. 
+React Router is used for client-side routing to navigate between different pages. 
+Redux is also utilized for state management, allowing for a more organized and centralized approach to managing application state across components.
 
-- **Backend**: The backend is implemented using Node.js and Express.js, providing RESTful APIs for handling quiz data storage, retrieval, and management. Data is stored in JSON format on the server.
+- **Backend**: The backend is implemented using Node.js and Express.js, providing RESTful APIs for handling quiz data storage, retrieval, and management. Data is stored in JSON format on the server. It provides a robust set of features for handling HTTP requests, routing, middleware, and more.
 
-- **Data Persistence**: The application uses asynchronous file operations to read from and write to JSON files on the server, allowing for data persistence between sessions.
+- **Data Persistence**: The application now uses localStorage for data persistence instead of asynchronous file operations. This allows the application to save and load quiz data directly from the user's browser storage. As a result, quiz information is stored locally and remains accessible even if the server is restarted or the application is reloaded. By utilizing localStorage, users can seamlessly create, edit, and save quizzes without relying on server-side file operations, enhancing the overall user experience.
+
 
 ## Getting Started
 

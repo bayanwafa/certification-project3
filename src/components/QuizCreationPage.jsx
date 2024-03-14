@@ -95,6 +95,7 @@ const QuizCreationPage = () => {
     const defaultQuizData = { quizName: 'My Quiz', questions: [{ question: 'Question 1', answer: 'Answer 1' }] }; // Default quiz data
 
     const jsonData = JSON.stringify(quizData || defaultQuizData, null, 2);
+    localStorage.setItem('savedQuiz', jsonData);
     const blob = new Blob([jsonData], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
