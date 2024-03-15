@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import App from './App.jsx'
 import './index.css'
 
@@ -28,8 +28,9 @@ const store = configureStore({
   }
 })
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-)
+  document.getElementById('root')
+);
