@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 
@@ -13,9 +13,9 @@ import { Provider } from 'react-redux'
  * Importing reducers
  */
 import testReducer from './reducers/testReducer.js'
-import quizReducer from './reducers/quizReducer';
-import { contactReducer } from './reducers/contactReducer';
-import quizCreationSlice from './reducers/quizCreationSlice';
+import quizReducer from './reducers/quizReducer.js';
+import { contactReducer } from './reducers/contactReducer.js';
+import quizCreationSlice from './reducers/quizCreationSlice.js';
 /**
  * Creating the store w/reducers
  */
@@ -28,9 +28,8 @@ const store = configureStore({
   }
 })
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
-);
+)
