@@ -27,3 +27,4 @@ Redux is also utilized for state management, allowing for a more organized and c
 ## Getting Started
 
 To get started with the Quiz Application, click the link:
+https://bayanwafa.github.io/certification-project3/
