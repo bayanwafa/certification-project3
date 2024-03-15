@@ -24,7 +24,7 @@ export const fetchQuizzes = () => {
   return (dispatch) => {
     dispatch(fetchQuizzesRequest());
     // Assuming quizzes are fetched from a JSON file
-    fetch('/data/quiz.json')
+    fetch('./data/quiz.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch quizzes');

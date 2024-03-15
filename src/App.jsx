@@ -19,7 +19,7 @@ const App = () => {
 
 
   return (
-      <Router>
+      <Router basename="/certification-project3">
         <div>
           <nav>
             <ul>
