@@ -10,6 +10,7 @@ const QuizCreationPage = () => {
   const dispatch = useDispatch();
   const quizName = useSelector(state => state.quizCreation.quizName);
   const questions = useSelector(state => state.quizCreation.questions);
+  const quizzes = useSelector(state => state.quiz.quizzes);
   const newQuestion = useSelector(state => state.quizCreation.newQuestion);
   const editingIndex = useSelector(state => state.quizCreation.editingIndex);
   const totalPoints = useSelector(state => state.quizCreation.totalPoints);
